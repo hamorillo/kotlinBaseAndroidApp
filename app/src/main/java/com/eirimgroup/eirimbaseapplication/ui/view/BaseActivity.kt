@@ -12,33 +12,37 @@ import org.kodein.di.KodeinAware
 
 abstract class BaseActivity : AppCompatActivity(), KodeinAware, LifecyclePublisher by lifeCycleLinker {
 
-    override lateinit var kodein: Kodein
+  override lateinit var kodein: Kodein
 
-    abstract val layoutId: Int
-    abstract val presenter: LifecycleSubscriber
-//    abstract val toolbarView: Toolbar
-    abstract val activityModules: Kodein.Module
+  abstract val layoutId: Int
+  abstract val presenter: LifecycleSubscriber
+  //    abstract val toolbarView: Toolbar
+  abstract val activityModules: Kodein.Module
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        kodein = applicationContext.asApp().kodein
-        applicationContext.asApp().addModule(activityModules)
-        super.onCreate(savedInstanceState)
-        setContentView(layoutId)
+  override fun onCreate(savedInstanceState: Bundle?) {
+    initializeKodein()
+    super.onCreate(savedInstanceState)
+    setContentView(layoutId)
 //        setSupportActionBar(toolbarView)
-        register(presenter)
-        preparePresenter(intent)
-        initialize()
-    }
+    register(presenter)
+    preparePresenter(intent)
+    initialize()
+  }
 
-    open fun preparePresenter(intent: Intent?) {}
+  open fun preparePresenter(intent: Intent?) {}
 
-    override fun onResume() {
-        super.onResume()
-        update()
-    }
+  override fun onResume() {
+    super.onResume()
+    update()
+  }
 
-    override fun onDestroy() {
-        unregister(presenter)
-        super.onDestroy()
-    }
+  override fun onDestroy() {
+    unregister(presenter)
+    super.onDestroy()
+  }
+
+  open fun initializeKodein() {
+    kodein = applicationContext.asApp().kodein
+    applicationContext.asApp().addModule(activityModules)
+  }
 }
