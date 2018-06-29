@@ -2,11 +2,15 @@ package com.eirimgroup.eirimbaseapplication
 
 import android.app.Application
 import android.content.Context
+import com.eirimgroup.eirimbaseapplication.data.repository.DataApiClient
 import com.eirimgroup.eirimbaseapplication.data.repository.GenericRepository
+import com.eirimgroup.eirimbaseapplication.data.repository.NetworkDataSource
 import org.kodein.di.KodeinAware
 import org.kodein.di.Kodein.Module
 import org.kodein.di.conf.ConfigurableKodein
 import org.kodein.di.generic.bind
+import org.kodein.di.generic.instance
+import org.kodein.di.generic.provider
 import org.kodein.di.generic.singleton
 
 class EirimBaseApplication: Application(), KodeinAware{
@@ -33,8 +37,9 @@ class EirimBaseApplication: Application(), KodeinAware{
   private fun appDependencies(): Module {
     return Module(name="genericRepository", allowSilentOverride = true) {
       bind<GenericRepository>() with singleton {
-        GenericRepository()
+        GenericRepository(listOf(NetworkDataSource(instance())))
       }
+      bind<DataApiClient>() with provider { DataApiClient() }
     }
   }
 }

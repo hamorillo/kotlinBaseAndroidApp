@@ -36,6 +36,12 @@ dependencies {
     implementation 'org.kodein.di:kodein-di-generic-jvm:5.2.0'
     implementation 'org.kodein.di:kodein-di-conf-jvm:5.2.0'
     implementation 'org.kodein.di:kodein-di-framework-android-support:5.2.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+    implementation 'com.squareup.retrofit2:converter-scalars:2.2.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    implementation 'org.funktionale:funktionale-either:1.2'
+    implementation 'co.metalab.asyncawait:asyncawait:1.0.0'
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'

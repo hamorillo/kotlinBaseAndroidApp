@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import com.eirimgroup.eirimbaseapplication.R
+import com.eirimgroup.eirimbaseapplication.domain.usecase.GetAll
 import com.eirimgroup.eirimbaseapplication.ui.presenter.MainActivityPresenter
 import kotlinx.android.synthetic.main.activity_main.*
 import org.kodein.di.Kodein
@@ -27,12 +28,13 @@ class MainActivity : BaseActivity(), MainActivityPresenter.View{
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 
-    hello_eirim_tv.setText("Eirim")
+    hello_eirim_tv.setText("Eirimers")
   }
 
   override val activityModules = Kodein.Module(name="MainActivityModule", allowSilentOverride = true) {
     bind<MainActivityPresenter>() with provider {
-      MainActivityPresenter(this@MainActivity)
+      MainActivityPresenter(this@MainActivity, instance())
     }
+    bind<GetAll>() with provider { GetAll(instance()) }
   }
 }
