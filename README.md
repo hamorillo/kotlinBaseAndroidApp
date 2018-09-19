@@ -1,4 +1,4 @@
-# Base Android App in Kotlin
+# Base Android App in Kotlin with Model-View-Presenter (MVP)
 
 This repo contains a base architecture sample of an Android App written with Kotlin, it was made only for training purpose. It's is based on some other repos, mostly from [Karumi](https://github.com/Karumi)
 
